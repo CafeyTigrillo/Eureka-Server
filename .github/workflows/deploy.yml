@@ -32,16 +32,16 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t cafeytigrillo/eureka-server:latest .
-          docker push cafeytigrillo/eureka-server:latest
+          docker build -t richard28/eureka-server:latest .
+          docker push richard28/eureka-server:latest
 
-     
+
       - name: Deploy to EC2
         run: |
           echo "${{ secrets.AWS_SSH_KEY }}" > key.pem
           chmod 400 key.pem
           ssh -o StrictHostKeyChecking=no -i key.pem ${{ secrets.AWS_USER }}@${{ secrets.AWS_HOST }} << 'EOF'
-            docker pull cafeytigrillo/eureka-server:latest
+            docker pull richard28/eureka-server:latest
             docker-compose up -d
             exit
           EOF
